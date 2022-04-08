@@ -1,6 +1,6 @@
 from turtle import Turtle
 ALIGNMENT = "center"
-FONT = ("courier", 24, "normal")
+FONT = ("courier", 20, "normal")
 
 class Scoreboard(Turtle):
     def __init__(self):
@@ -11,9 +11,24 @@ class Scoreboard(Turtle):
         self.penup()
         self.goto(0, 260)
         self.update_scoreboard()
+    
+    def high_score_update(self):
+        line_ = list()
+        high_score = 0
+        with open("score.txt", "r") as fopen:
+            for line in fopen:
+                line_ = line.split(":")
+            if len(line_) == 0:
+                high_score = 0
+            else:
+                high_score = int(line_[1].strip())
+        
+        self.goto(0, 50)
+        self.write(f"High Score: {high_score}", align="center", font=("courier", 20, "normal"))
 
     def update_scoreboard(self):
         self.write(f"score: {self.score}", align=ALIGNMENT, font=FONT)
+
 
 
     def increase_score(self):
@@ -22,8 +37,28 @@ class Scoreboard(Turtle):
         self.update_scoreboard()
 
     def game_over(self):
+        
         self.goto(0, 0)
         self.write("Game Over", align="center", font=("courier", 24, "normal"))
+        self.save_high_score()
+        self.high_score_update()
+        
+
+
+    def save_high_score(self):
+        score_list = list()
+        with open("score.txt", "r") as fopen:
+            for line in fopen:
+                score_list = line.split(":")
+        with open("score.txt", "w") as fwrite:
+            if len(score_list) == 0:
+                fwrite.write(f"Score: {self.score}")
+            else:
+                if int(score_list[1].strip()) < self.score:
+                    fwrite.write(f"Score: {self.score}")
+                else:
+                    fwrite.write(f"Score: {int(score_list[1].strip())}")
+                    
 
 
 

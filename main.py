@@ -26,15 +26,8 @@ def game():
     scoreboard = Scoreboard()
 
     #Level selection
-    level = screen.textinput("LEVEl SELECTION", "Enter the level you want. (Hard/Medium/Easy): ")
-    if level.title() == "Easy":
-        time.sleep(0.7)
-    elif level.title() == "Medium":
-        time.sleep(0.3)
-    if level.title() == "Hard":
-        time.sleep(0.1)
-
-
+    level = screen.textinput("LEVEl SELECTION", "Enter the level you want. (H/M/E): ")
+  
     screen.listen()
 
     screen.onkey(snake.up, "Up")
@@ -45,11 +38,11 @@ def game():
     game_is_on = True
     while game_is_on:
         screen.update()
-        if level.title() == "Easy":
+        if level.title() == "E":
             time.sleep(0.7)
-        elif level.title() == "Medium":
+        elif level.title() == "M":
             time.sleep(0.3)
-        if level.title() == "Hard":
+        if level.title() == "H":
             time.sleep(0.1)
         snake.move()
 
@@ -66,7 +59,7 @@ def game():
 
         # Detect collision with tail
         for segment in snake.segments[1:]:
-            if snake.head.distance(segment) < 10:
+            if snake.head.distance(segment) < 5:
                 game_is_on = False
                 scoreboard.game_over()
 

@@ -1,5 +1,5 @@
-from turtle import Screen, Turtle
-import time
+from turtle import Turtle
+
 
 STARTING_POSITIONS = [(0, 0), (-10, 0), (-20, 0)]
 class Snake:
@@ -16,7 +16,9 @@ class Snake:
 
 
     def add_segment(self, position):
-        name = Turtle("circle")
+        name = Turtle("square")
+        name.shapesize(stretch_len=0.5, stretch_wid=0.5)
+        #name.shapesize(1.0, 1.0, 1.0) # width, len, outline
         name.color("white")
         name.penup()
         name.goto(position)
@@ -31,7 +33,7 @@ class Snake:
             new_x = self.segments[self.seq_num - 1].xcor()
             new_y = self.segments[self.seq_num - 1].ycor()
             self.segments[self.seq_num].goto(new_x, new_y)
-        self.segments[0].forward(20)
+        self.segments[0].forward(10)
 
 
 
